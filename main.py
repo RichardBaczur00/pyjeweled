@@ -133,21 +133,25 @@ def try_moves(table):
                 TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i - 1, j) == 0:
                 TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i, j + 1) == 0:
                 TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i, j - 1) == 0:
                 TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
     if not found:
         return -1
