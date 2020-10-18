@@ -120,6 +120,7 @@ def fall_motion(table, i, j):
         return None
 
 
+
 def try_moves(table):
     found = False
     for i in range(len(table)):
@@ -143,6 +144,7 @@ def try_moves(table):
     if not found:
         return -1
     return 0
+
 
 
 def refill_table(table):
