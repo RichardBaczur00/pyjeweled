@@ -248,26 +248,26 @@ def try_moves(table):
     global TOTAL_SCORE
     for i in range(len(table)):
         for j in range(len(table[0])):
-            if make_move(table, i, j, i + 1, j) == 0:
-                TOTAL_SCORE += 5
+            if x := make_move(table, i, j, i + 1, j) != -1:
+                TOTAL_SCORE += x
                 found = True
                 refill_table(table)
                 print_table(table)
                 break
-            if make_move(table, i, j, i - 1, j) == 0:
-                TOTAL_SCORE += 5
+            if x := make_move(table, i, j, i - 1, j) != -1:
+                TOTAL_SCORE += x
                 found = True
                 refill_table(table)
                 print_table(table)
                 break
-            if make_move(table, i, j, i, j + 1) == 0:
-                TOTAL_SCORE += 5
+            if x := make_move(table, i, j, i, j + 1) != -1:
+                TOTAL_SCORE += x
                 found = True
                 refill_table(table)
                 print_table(table)
                 break
-            if make_move(table, i, j, i, j - 1) == 0:
-                TOTAL_SCORE += 5
+            if x := make_move(table, i, j, i, j - 1) != -1:
+                TOTAL_SCORE += x
                 found = True
                 refill_table(table)
                 print_table(table)
@@ -287,7 +287,7 @@ def refill_table(table):
 
 def main():
     global TOTAL_SCORE
-    for _ in range(100):
+    for _ in range(1000):
         table = create_table(11, 11)
         refill_table(table)
         print_table(table)
@@ -296,7 +296,7 @@ def main():
             try_moves(table)
             # print_table(table)
             # time.sleep(0.5)
-    print(TOTAL_SCORE / 100)
+    print(TOTAL_SCORE / 1000)
         
 
 if __name__ == "__main__":
