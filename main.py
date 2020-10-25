@@ -3,6 +3,9 @@ from enum import Enum
 import time
 
 
+TOTAL_SCORE = 0
+
+
 class Piece(Enum):
     RED = 1
     YELLOW = 2
@@ -29,13 +32,132 @@ def print_table(table):
 
 def make_move(table, start_x, start_y, end_x, end_y):
     color_start = table[start_x][start_y]
+
+
+    # 5 in a row
+    try:
+        if color_start == table[end_x][end_y - 2] and color_start == table[end_x][end_y - 1] and color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y + 2]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = table[end_x][end_y - 1] = table[end_x][end_y - 2] = Piece.EMPTY
+            return 50
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x - 2][end_y] and color_start == table[end_x - 1][end_y] and color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = table[end_x - 1][end_y] = table[end_x - 2][end_y] = Piece.EMPTY
+            return 50
+    except IndexError:
+        pass
+
+    # T
+    try:
+        if color_start == table[end_x - 1][end_y] and color_start == table[end_x + 1][end_y] and color_start == table[end_x][end_y - 1] and color_start == table[end_x][end_y - 2]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x - 1][end_y] = table[end_x + 1][end_y] = table[end_x][end_y - 1] = table[end_x][end_y - 2] = Piece.EMPTY
+            return 30
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x - 1][end_y] and color_start == table[end_x + 1][end_y] and color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y + 2]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x - 1][end_y] = table[end_x + 1][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = Piece.EMPTY
+            return 30
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x - 1][end_y] and color_start == table[end_x - 2][end_y] and color_start == table[end_x][end_y - 1] and color_start == table[end_x][end_y + 1]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x - 1][end_y] = table[end_x - 2][end_y] = table[end_x][end_y - 1] = table[end_x][end_y + 1] = Piece.EMPTY
+            return 30
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y] and color_start == table[end_x][end_y - 1] and color_start == table[end_x][end_y + 1]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = table[end_x][end_y - 1] = table[end_x][end_y + 1] = Piece.EMPTY
+            return 30
+    except IndexError:
+        pass
+
+    # L
+    try:
+        if color_start == table[end_x][end_y - 2] and color_start == table[end_x][end_y - 1] and color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y - 1] = table[end_x][end_y - 2] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = Piece.EMPTY
+            return 20
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x][end_y + 2] and color_start == table[end_x][end_y + 1] and color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = Piece.EMPTY
+            return 20
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x][end_y + 2] and color_start == table[end_x][end_y + 1] and color_start == table[end_x - 1][end_y] and color_start == table[end_x - 2][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = table[end_x - 1][end_y] = table[end_x - 2][end_y] = Piece.EMPTY
+            return 20
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x][end_y - 2] and color_start == table[end_x][end_y - 1] and color_start == table[end_x - 1][end_y] and color_start == table[end_x - 2][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y - 1] = table[end_x][end_y - 2] = table[end_x - 1][end_y] = table[end_x - 2][end_y] = Piece.EMPTY
+            return 20
+    except IndexError:
+        pass
+
+
+    # 4 in a row
+    try:
+        if color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y + 2] and color_start == table[end_x][end_y - 1]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = table[end_x][end_y - 1] = Piece.EMPTY
+            return 10
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y - 2] and color_start == table[end_x][end_y - 1]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y - 2] = table[end_x][end_y - 1] = Piece.EMPTY
+            return 10
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y] and color_start == table[end_x - 1][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = table[end_x - 1][end_y] = Piece.EMPTY
+            return 10
+    except IndexError:
+        pass
+
+    try:
+        if color_start == table[end_x + 1][end_y] and color_start == table[end_x - 2][end_y] and color_start == table[end_x - 1][end_y]:
+            table[start_x][start_y] = table[end_x][end_y]
+            table[end_x][end_y] = table[end_x + 1][end_y] = table[end_x - 2][end_y] = table[end_x - 1][end_y] = Piece.EMPTY
+            return 10
+    except IndexError:
+        pass
     
+    #3 in a row
     # middle moved
     try:
         if color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y - 1]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x][end_y - 1] = table[end_x][end_y + 1] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
     
@@ -43,7 +165,7 @@ def make_move(table, start_x, start_y, end_x, end_y):
         if color_start == table[end_x - 1][end_y] and color_start == table[end_x + 1][end_y]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x - 1][end_y] = table[end_x + 1][end_y] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
 
@@ -52,7 +174,7 @@ def make_move(table, start_x, start_y, end_x, end_y):
         if color_start == table[end_x - 1][end_y] and color_start == table[end_x - 2][end_y]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x - 1][end_y] = table[end_x - 2][end_y] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
 
@@ -61,7 +183,7 @@ def make_move(table, start_x, start_y, end_x, end_y):
         if color_start == table[end_x + 1][end_y] and color_start == table[end_x + 2][end_y]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x + 1][end_y] = table[end_x + 2][end_y] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
     
@@ -70,7 +192,7 @@ def make_move(table, start_x, start_y, end_x, end_y):
         if color_start == table[end_x][end_y - 1] and color_start == table[end_x][end_y - 2]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x][end_y - 1] = table[end_x][end_y - 2] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
 
@@ -79,7 +201,7 @@ def make_move(table, start_x, start_y, end_x, end_y):
         if color_start == table[end_x][end_y + 1] and color_start == table[end_x][end_y + 2]:
             table[start_x][start_y] = table[end_x][end_y]
             table[end_x][end_y] = table[end_x][end_y + 1] = table[end_x][end_y + 2] = Piece.EMPTY
-            return 0
+            return 5
     except IndexError:
         pass
 
@@ -123,23 +245,32 @@ def fall_motion(table, i, j):
 
 def try_moves(table):
     found = False
+    global TOTAL_SCORE
     for i in range(len(table)):
         for j in range(len(table[0])):
             if make_move(table, i, j, i + 1, j) == 0:
+                TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i - 1, j) == 0:
+                TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i, j + 1) == 0:
+                TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
             if make_move(table, i, j, i, j - 1) == 0:
+                TOTAL_SCORE += 5
                 found = True
                 refill_table(table)
+                print_table(table)
                 break
     if not found:
         return -1
@@ -155,14 +286,17 @@ def refill_table(table):
 
 
 def main():
-    table = create_table(10, 10)
-    refill_table(table)
-    print_table(table)
-    time.sleep(0.5)
-    for _ in range(0, 10):
-        try_moves(table)
+    global TOTAL_SCORE
+    for _ in range(100):
+        table = create_table(11, 11)
+        refill_table(table)
         print_table(table)
         time.sleep(0.5)
+        for _ in range(10000):
+            try_moves(table)
+            # print_table(table)
+            # time.sleep(0.5)
+    print(TOTAL_SCORE / 100)
         
 
 if __name__ == "__main__":
